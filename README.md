@@ -28,7 +28,7 @@ Conexión a Internet
 
 Excluir la carpeta del instalador del antivirus (especialmente Windows Defender)
 
-Tener espacio suficiente para los archivos del juego (~2.5GB)
+Tener espacio suficiente para los archivos del juego (~5GB)
 
 📎 Recursos descargados
 Archivo	Fuente
