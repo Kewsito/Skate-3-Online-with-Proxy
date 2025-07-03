@@ -3,15 +3,17 @@ from bs4 import BeautifulSoup
 import os
 import subprocess
 import time
-
+import upd as updater
+# Constantes
+VERSION_LOCAL="v1.3"
 url_LATAM = "https://www.mediafire.com/file/lsl6t6zuikavrgw/Skate_3_Online.7z/file"
 url_EU = (
     "https://www.mediafire.com/file/g23mwmh8foxb80b/Skate_3_Online_EU_version.7z/file"
 )
 Skate3_EU = "https://www.mediafire.com/file/jl7fj99cm22ro54/Skate_3_BLES.7z/file"
 Skate3_LATAM = "https://www.mediafire.com/file/tr6vez5ujecm89t/Skate_3_BLUS.7z/file"
-headers = {"User-Agent": "Mozilla/5.0"}
 
+headers = {"User-Agent": "Mozilla/5.0"}
 
 def get_url(url):
     response = requests.get(url, headers=headers)
@@ -20,11 +22,10 @@ def get_url(url):
     boton = soup.find("a", {"aria-label": "Download file"})
 
     if boton and boton.has_attr("href"):
-        print("Enlace de descarga:", boton["href"])
-
         return boton["href"]
     else:
         print("No se pudo encontrar el enlace de descarga.")
+        time.sleep(2)
         return None
 
 
@@ -101,7 +102,8 @@ def menu():
         print("1 - Descargar e Instalar Skate 3 ONLINE + Emulador + Firmware")
         print("2 - Descargar Firmware para RPCS3")
         print("3 - Descargar Skate 3 EUROPE / LATAM")
-        print("4 - Salir")
+        print("4 - Actualizar Instalador")
+        print("0 - Salir")
         print("===============================")
         print("NOTA: Este instalador requiere conexión a internet.")
         print("Excluí la carpeta en Windows Defender para evitar problemas.")
@@ -117,6 +119,9 @@ def menu():
             menuSkateImagen()
             break
         elif opcion == "4":
+            updater.verificar_actualizacion(VERSION_LOCAL)
+            time.sleep(2)
+        elif opcion == "0":
             print("Saliendo...")
             break
         else:
@@ -215,3 +220,4 @@ def menuSkateNuevo():
 
 if __name__ == "__main__":
     menu()
+    # menu()
