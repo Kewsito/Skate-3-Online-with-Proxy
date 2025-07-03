@@ -1,0 +1,7 @@
+/venv
+/output
+/.vscode
+/.pytest_cache
+Skate3_EU.7z
+Skate3_LATAM.7z
+7zr.exe
