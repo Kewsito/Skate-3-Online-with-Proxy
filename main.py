@@ -13,6 +13,12 @@ url_EU = (
 Skate3_EU = "https://www.mediafire.com/file/jl7fj99cm22ro54/Skate_3_BLES.7z/file"
 Skate3_LATAM = "https://www.mediafire.com/file/tr6vez5ujecm89t/Skate_3_BLUS.7z/file"
 
+# DLC's
+DLC_EU = "https://www.mediafire.com/file/5pphq45o6qcqrvn/Skate_3_BLES_DLC_for_RPCS3&PS3.7z/file"
+DLC_LATAM = "https://www.mediafire.com/file/db9inenrfz3ixet/Skate_3_BLUS_DLC_for_RPCS3%2526PS3.7z/file"
+
+# Mod Menu
+Native_Menu = "https://www.mediafire.com/file/3tel1wo0sarzo5u/S3Native.exe/file"
 headers = {"User-Agent": "Mozilla/5.0"}
 
 def get_url(url):
@@ -102,7 +108,9 @@ def menu():
         print("1 - Descargar e Instalar Skate 3 ONLINE + Emulador + Firmware")
         print("2 - Descargar Firmware para RPCS3")
         print("3 - Descargar Skate 3 EUROPE / LATAM")
-        print("4 - Actualizar Instalador")
+        print("4 - Descargar DLC's Skate 3 EUROPE / LATAM")
+        print("5 - Descargar Skate 3 Native Menu")
+        print("6 - Actualizar Instalador")
         print("0 - Salir")
         print("===============================")
         print("NOTA: Este instalador requiere conexión a internet.")
@@ -119,6 +127,52 @@ def menu():
             menuSkateImagen()
             break
         elif opcion == "4":
+            clear_screen()
+            print("===============================")
+            print("     SELECCIONAR REGIÓN")
+            print("===============================")
+            print("1 - Europa")
+            print("2 - Latam")
+            print("3 - Salir")
+            print("===============================")
+            opcion = input("Ingrese una opción: ")
+
+            if opcion == "1":
+                url = get_url(DLC_EU)
+                if url:
+                    descargar_archivo("DLC_Skate3_EU.7z", url)
+                    descomprimir("DLC_Skate3_EU.7z")
+                else:
+                    print("No se pudo obtener el enlace de descarga para la región Europa.")
+                    time.sleep(2)
+            elif opcion == "2":
+                url = get_url(DLC_LATAM)
+                if url:
+                    descargar_archivo("DLC_Skate3_LATAM.7z", url)
+                    descomprimir("DLC_Skate3_LATAM.7z")
+                else:
+                    print("No se pudo obtener el enlace de descarga para la región LATAM.")
+                    time.sleep(2)
+            elif opcion == "3":
+                print("Saliendo...")
+                break
+            else:
+                print("Opción inválida. Intente de nuevo.")
+                time.sleep(2)
+        elif opcion == "5":
+            clear_screen()
+            print("===============================")
+            print("     DESCARGAR NATIVE MENU")
+            print("===============================")
+            url = get_url(Native_Menu)
+            if url:
+                descargar_archivo("Native_Menu.exe", url)
+                print("Descarga completa.")
+                time.sleep(2)
+            else:
+                print("No se pudo obtener el enlace de descarga para el Native Menu.")
+                time.sleep(2)
+        elif opcion == "6":
             updater.verificar_actualizacion(VERSION_LOCAL)
             time.sleep(2)
         elif opcion == "0":
