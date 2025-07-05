@@ -5,7 +5,7 @@ import subprocess
 import time
 import upd as updater
 # Constantes
-VERSION_LOCAL="v1.3"
+VERSION_LOCAL="v1.4"
 url_LATAM = "https://www.mediafire.com/file/lsl6t6zuikavrgw/Skate_3_Online.7z/file"
 url_EU = (
     "https://www.mediafire.com/file/g23mwmh8foxb80b/Skate_3_Online_EU_version.7z/file"
