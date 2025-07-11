@@ -1,38 +1,14 @@
-import requests
-from bs4 import BeautifulSoup
 import os
 import subprocess
 import time
 import upd as updater
+import APIGoogleDrive as API
+import login
+from dotenv import load_dotenv
+import ejecutable as ej
+load_dotenv()
 # Constantes
-VERSION_LOCAL="v1.4"
-url_LATAM = "https://www.mediafire.com/file/lsl6t6zuikavrgw/Skate_3_Online.7z/file"
-url_EU = (
-    "https://www.mediafire.com/file/g23mwmh8foxb80b/Skate_3_Online_EU_version.7z/file"
-)
-Skate3_EU = "https://www.mediafire.com/file/jl7fj99cm22ro54/Skate_3_BLES.7z/file"
-Skate3_LATAM = "https://www.mediafire.com/file/tr6vez5ujecm89t/Skate_3_BLUS.7z/file"
-
-# DLC's
-DLC_EU = "https://www.mediafire.com/file/5pphq45o6qcqrvn/Skate_3_BLES_DLC_for_RPCS3&PS3.7z/file"
-DLC_LATAM = "https://www.mediafire.com/file/db9inenrfz3ixet/Skate_3_BLUS_DLC_for_RPCS3%2526PS3.7z/file"
-
-# Mod Menu
-Native_Menu = "https://www.mediafire.com/file/3tel1wo0sarzo5u/S3Native.exe/file"
-headers = {"User-Agent": "Mozilla/5.0"}
-
-def get_url(url):
-    response = requests.get(url, headers=headers)
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    boton = soup.find("a", {"aria-label": "Download file"})
-
-    if boton and boton.has_attr("href"):
-        return boton["href"]
-    else:
-        print("No se pudo encontrar el enlace de descarga.")
-        time.sleep(2)
-        return None
+VERSION_LOCAL="v2.0"
 
 
 def clear_screen():
@@ -45,12 +21,20 @@ def descargar_archivo(nombre, url):
         subprocess.run(["curl", "-L", "-o", nombre, url])
     else:
         print(f"{nombre} ya existe. No se descargará nuevamente.")
+    return
 
 
 def instalar_7zip():
     print("Instalando 7-Zip...")
     url = "https://www.7-zip.org/a/7zr.exe"
     descargar_archivo("7zr.exe", url)
+
+def descargar_firmware():
+    clear_screen()
+    print("Descargando Firmware para RPCS3...")
+    firmware_url = "http://dmx01.ps3.update.playstation.net/update/ps3/image/mx/2025_0305_c179ad173bbc08b55431d30947725a4b/PS3UPDAT.PUP"
+    descargar_archivo("Firmware_ps3.PUP", firmware_url)
+    return
 
 
 def descomprimir(nombre_archivo):
@@ -69,12 +53,6 @@ def descomprimir(nombre_archivo):
         print("✅ Archivo descomprimido con éxito.")
 
 
-def descargar_firmware():
-    clear_screen()
-    print("Descargando Firmware para RPCS3...")
-    firmware_url = "http://dmx01.ps3.update.playstation.net/update/ps3/image/mx/2025_0305_c179ad173bbc08b55431d30947725a4b/PS3UPDAT.PUP"
-    descargar_archivo("Firmware_ps3.PUP", firmware_url)
-
 
 def finalizar_instalacion():
     clear_screen()
@@ -82,7 +60,6 @@ def finalizar_instalacion():
     print("🔧 Instrucciones importantes:")
     print("- Ingresá tus datos en Proxy")
     print("- Configurá RPCN en el emulador")
-    print("- Asegurate de instalar el firmware")
     print("\nGracias por usar el instalador de Skate 3 Online by Kewsito 🎮")
     print("Unite a nuestro Discord: https://discord.gg/EyTvqHVybG")
     input("\nPresioná Enter para salir.")
@@ -90,11 +67,14 @@ def finalizar_instalacion():
 
 def instalar_region(nombre_archivo, url):
     clear_screen()
+    API.iniciarAPI(nombre_archivo, url)
     print(f"Usted seleccionó: {nombre_archivo}")
-    descargar_archivo(nombre_archivo, url)
-    instalar_7zip()
-    descomprimir(nombre_archivo)
-    descargar_firmware()
+    estado = input("Desea descomprimir el archivo? (S/N)")
+    if estado.lower()=='s':
+        instalar_7zip()
+        descomprimir(nombre_archivo)
+    login.login()
+    #ej.crear_bat_en_escritorio()
     finalizar_instalacion()
 
 
@@ -105,7 +85,7 @@ def menu():
         print("    SKATE 3 ONLINE INSTALLER")
         print("          by Kewsito")
         print("===============================")
-        print("1 - Descargar e Instalar Skate 3 ONLINE + Emulador + Firmware")
+        print("1 - Descargar e Instalar Skate 3 ONLINE + DLC's + Emulador")
         print("2 - Descargar Firmware para RPCS3")
         print("3 - Descargar Skate 3 EUROPE / LATAM")
         print("4 - Descargar DLC's Skate 3 EUROPE / LATAM")
@@ -122,6 +102,8 @@ def menu():
             break
         elif opcion == "2":
             descargar_firmware()
+            clear_screen()
+            print("✅ Firmware descargado con éxito.")
             break
         elif opcion == "3":
             menuSkateImagen()
@@ -138,21 +120,23 @@ def menu():
             opcion = input("Ingrese una opción: ")
 
             if opcion == "1":
-                url = get_url(DLC_EU)
-                if url:
-                    descargar_archivo("DLC_Skate3_EU.7z", url)
+                API.iniciarAPI("DLC_Skate3_EU.7z",os.environ.get('DLC_EU'))
+                clear_screen()
+                res = input("Descarga completa. Descomprimir archivo? (S/N)")
+                if res.lower() == "s":
                     descomprimir("DLC_Skate3_EU.7z")
                 else:
-                    print("No se pudo obtener el enlace de descarga para la región Europa.")
-                    time.sleep(2)
+                    print("Descompresión omitida.")
+                time.sleep(2)
             elif opcion == "2":
-                url = get_url(DLC_LATAM)
-                if url:
-                    descargar_archivo("DLC_Skate3_LATAM.7z", url)
+                API.iniciarAPI("DLC_Skate3_LATAM.7z",os.environ.get('DLC_LATAM'))
+                clear_screen()
+                res = input("Descarga completa. Descomprimir archivo? (S/N)")
+                if res.lower() == "s":
                     descomprimir("DLC_Skate3_LATAM.7z")
                 else:
-                    print("No se pudo obtener el enlace de descarga para la región LATAM.")
-                    time.sleep(2)
+                    print("Descompresión omitida.")
+                time.sleep(2)
             elif opcion == "3":
                 print("Saliendo...")
                 break
@@ -164,14 +148,8 @@ def menu():
             print("===============================")
             print("     DESCARGAR NATIVE MENU")
             print("===============================")
-            url = get_url(Native_Menu)
-            if url:
-                descargar_archivo("Native_Menu.exe", url)
-                print("Descarga completa.")
-                time.sleep(2)
-            else:
-                print("No se pudo obtener el enlace de descarga para el Native Menu.")
-                time.sleep(2)
+            API.iniciarAPI("Native_Menu.7z", os.environ.get('Native_Menu'))
+            break
         elif opcion == "6":
             updater.verificar_actualizacion(VERSION_LOCAL)
             time.sleep(2)
@@ -198,33 +176,24 @@ def menuSkateImagen():
         opcion = input("Ingrese una opción: ")
 
         if opcion == "1":
-            url = get_url(Skate3_EU)
-            if url:
-                descargar_archivo("Skate3_EU.7z", url)
-                clear_screen()
-                res = input("Descarga completa. Descomprimir archivo? (S/N)")
-                if res.lower() == "s":
+            instalar_region("Skate3_EU.7z",os.environ.get('Skate3_EU'))
+            clear_screen()
+            res = input("Descarga completa. Descomprimir archivo? (S/N)")
+            if res.lower() == "s":
                     descomprimir("Skate3_EU.7z")
-                else:
-                    print("Descompresión omitida.")
             else:
-                print("No se pudo obtener el enlace de descarga para la región Europa.")
-                time.sleep(2)
+                    print("Descompresión omitida.")
+            time.sleep(2)
             break
         elif opcion == "2":
-            url = get_url(Skate3_LATAM)
-            if url:
-                descargar_archivo("Skate3_LATAM.7z", url)
-                clear_screen()
-                res = input("Descarga completa. Descomprimir archivo? (S/N)")
-                if res.lower() == "s":
+            instalar_region("Skate3_LATAM.7z", os.environ.get('Skate3_LATAM'))
+            clear_screen()
+            res = input("Descarga completa. Descomprimir archivo? (S/N)")
+            if res.lower() == "s":
                     descomprimir("Skate3_EU.7z")
-                else:
-                    print("Descompresión omitida.")
-                break
             else:
-                print("No se pudo obtener el enlace de descarga para la región LATAM.")
-                time.sleep(2)
+                    print("Descompresión omitida.")
+            time.sleep(2)
             break
         elif opcion == "3":
             print("Saliendo...")
@@ -249,21 +218,10 @@ def menuSkateNuevo():
         opcion = input("Ingrese una opción: ")
 
         if opcion == "1":
-            url = get_url(url_EU)
-            if url:
-                instalar_region("Skate3_EU.7z", url)
-            else:
-                print("No se pudo obtener el enlace de descarga para la región Europa.")
-                time.sleep(2)
-            break
+            instalar_region("Skate3_EU.7z",os.environ.get('url_EU'))
+            
         elif opcion == "2":
-            url = get_url(url_LATAM)
-            if url:
-                instalar_region("Skate3_LATAM.7z", url)
-            else:
-                print("No se pudo obtener el enlace de descarga para la región LATAM.")
-                time.sleep(2)
-            break
+            instalar_region("Skate3_LATAM.7z",os.environ.get('url_LATAM'))
         elif opcion == "3":
             print("Saliendo...")
             break
@@ -274,4 +232,3 @@ def menuSkateNuevo():
 
 if __name__ == "__main__":
     menu()
-    # menu()
