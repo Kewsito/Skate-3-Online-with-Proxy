@@ -16,7 +16,27 @@ Un instalador automatizado para configurar Skate 3 Online de forma rápida y sin
 - Cloná o descargá el repositorio
 - Ejecuta 'pip install requirements.txt'
 
+# Queres jugar? 🎮
+- Descarga el ultimo /release ( descargar de todos modos, es un falso positivo)
+- Abris el script
+- Seleccionas "Descargar Skate 3 Online" 
+- Seleccionas la region
+Y listo! El programa hara todo automaticamente
 
+## Recuerda que para jugar online son necesarias las siguientes credenciales:
+- Datos de la cuenta en Proxy (es una carpeta dentro del emulador llamado "Skate 3 RPCS3 Proxy", abris el archivo "Skate 3 RPCS3 Proxy" y colocas los datos de la cuenta de EA con la de PSN) Recorda que es necesario que las cuentas de PSN y EA esten vinculadas!
+- Datos RPCN de emulador (Configuration > RPCN)
+- Actualizar firmware del emulador (se descarga automaticamente, es necesario instalarlo desde el mismo emulador en File > Install firmware)
+
+
+
+## Para excluir una carpeta donde se va a colocar el script
+- Buscamos seguridad de Windows
+- Accedemos a Protección contra virus y amenazas
+- Administrar la configuración
+- Agregar o quitar exclusiones
+- Agregar exclusión y seleccionamos la carpeta donde vamos a poner el script
+- Listo! Ya agregaste la carpeta!
 # ⚠️ Requisitos
 - Conexión a Internet
 - Excluir la carpeta del instalador del antivirus (especialmente Windows Defender)
