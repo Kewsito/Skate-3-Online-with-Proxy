@@ -1,5 +1,5 @@
 # 🛠️ Skate 3 Online Installer by Kewsito
-Un instalador automatizado para configurar Skate 3 Online de forma rápida y sin complicaciones en RPCS3, con soporte para dos regiones: EU y LATAM. Este script .bat realiza los siguientes pasos:
+Un instalador automatizado para configurar Skate 3 Online de forma rápida y sin complicaciones en RPCS3, con soporte para dos regiones: EU y LATAM. Este script realiza los siguientes pasos:
 
 # 🎮 Funcionalidades principales
 - 📦 Descarga automática del juego según la región seleccionada (Europa o Latinoamérica)
