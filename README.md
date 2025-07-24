@@ -1,54 +1,47 @@
-# 🛠️ Skate 3 Online Installer by Kewsito
-Un instalador automatizado para configurar Skate 3 Online de forma rápida y sin complicaciones en RPCS3, con soporte para dos regiones: EU y LATAM. Este script realiza los siguientes pasos:
+🛠️ Skate 3 Online Installer por Kewsito
 
-# 🎮 Funcionalidades principales
-- 📦 Descarga automática del juego según la región seleccionada (Europa o Latinoamérica)
+Un instalador automatizado para configurar Skate 3 Online de forma rápida y sin complicaciones en el emulador RPCS3. Soporta las regiones de Europa (EU) y Latinoamérica (LATAM), automatizando todo el proceso de descarga y configuración.
 
-- 🧩 Descarga del firmware oficial de PS3 necesario para RPCS3
+🎮 Funcionalidades Principales
+📦 Descarga del Juego: Descarga automáticamente la versión completa del juego para tu región seleccionada (Europa o Latinoamérica), incluyendo el emulador RPCS3.
+🧩 Descarga de Firmware: Obtiene el firmware oficial de PS3 necesario para que RPCS3 funcione correctamente.
+🎮 DLC y Extras: Incluye opciones para descargar los DLCs oficiales y el popular "Skate 3 Native Menu".
+🧰 Instalación Automática: Instala la herramienta de línea de comandos de 7-Zip (7zr.exe) si no está presente y descomprime todos los archivos necesarios.
+🔑 Configuración de Proxy: Te guía para crear el archivo login.json con tus credenciales de EA y PSN, un paso crucial para jugar online.
+🔄 Actualizador Automático: El script puede verificar si hay una nueva versión del instalador y actualizarse automáticamente.
+🚀 Instalación y Uso (Método Recomendado)
+Ve a la sección de Releases de este repositorio.
+Descarga el archivo .exe más reciente.
+Nota: Tu navegador o Windows pueden mostrar una advertencia de seguridad. Es un falso positivo, puedes ignorarlo y descargar el archivo.
+Ejecuta el archivo .exe que descargaste.
+Sigue las instrucciones del menú para seleccionar tu región e iniciar la instalación. El programa se encargará del resto.
+⚠️ Requisitos
+Sistema Operativo Windows.
+Conexión a internet estable.
+Espacio en disco suficiente para el juego y el emulador (aproximadamente 10 GB).
+Se recomienda encarecidamente añadir una exclusión en tu antivirus para la carpeta donde ejecutes el script.
+⚙️ Configuración Final para Jugar Online
+Una vez que el instalador termine, debes completar los siguientes pasos en el emulador para poder jugar online:
 
-- 🧰 Instalación automática de 7-Zip CLI (7zr.exe) si no está presente
+1. Instalar el Firmware
+Abre el emulador RPCS3.
+Ve al menú File > Install Firmware.
+Busca y selecciona el archivo PS3UPDAT.PUP que fue descargado por el instalador.
+2. Configurar las Credenciales del Proxy
+El instalador te pedirá tu email de EA, contraseña de EA y tu PSN ID para crear automáticamente el archivo login.json.
+¡IMPORTANTE! Tu cuenta de EA y tu cuenta de PSN deben estar vinculadas previamente. Puedes hacerlo en la página de Cuentas Conectadas de EA.
+3. Configurar RPCN en el Emulador
+Dentro del emulador RPCS3, ve a Configuration > RPCN.
+Introduce los datos de tu cuenta de RPCN. Si no tienes una, puedes crearla en la web oficial de RPCN.
+🛡️ Cómo Excluir la Carpeta del Antivirus
+Para evitar que Windows Defender u otro antivirus interrumpa la instalación:
 
-- 🗂️ Descompresión del archivo .7z con verificación de errores
-
-- 📋 Instrucciones post-instalación para configurar la conexión online en el emulador
-
-# 💡 ¿Cómo usarlo?
-- Cloná o descargá el repositorio
-- Ejecuta 'pip install requirements.txt'
-
-# Queres jugar? 🎮
-- Descarga el ultimo /release ( descargar de todos modos, es un falso positivo)
-- Abris el script
-- Seleccionas "Descargar Skate 3 Online" 
-- Seleccionas la region
-Y listo! El programa hara todo automaticamente
-
-## Recuerda que para jugar online son necesarias las siguientes credenciales:
-- Datos de la cuenta en Proxy (es una carpeta dentro del emulador llamado "Skate 3 RPCS3 Proxy", abris el archivo "Skate 3 RPCS3 Proxy" y colocas los datos de la cuenta de EA con la de PSN) Recorda que es necesario que las cuentas de PSN y EA esten vinculadas!
-- Datos RPCN de emulador (Configuration > RPCN)
-- Actualizar firmware del emulador (se descarga automaticamente, es necesario instalarlo desde el mismo emulador en File > Install firmware)
-
-
-
-## Para excluir una carpeta donde se va a colocar el script
-- Buscamos seguridad de Windows
-- Accedemos a Protección contra virus y amenazas
-- Administrar la configuración
-- Agregar o quitar exclusiones
-- Agregar exclusión y seleccionamos la carpeta donde vamos a poner el script
-- Listo! Ya agregaste la carpeta!
-# ⚠️ Requisitos
-- Conexión a Internet
-- Excluir la carpeta del instalador del antivirus (especialmente Windows Defender)
-- Tener espacio suficiente para los archivos del juego (~5GB)
-
-# 📎 Recursos descargados
-Archivo	Fuente
-Skate3_EU.7z / Skate3_LATAM.7z	MediaFire
-Firmware_ps3.PUP	Servidor oficial de Sony
-7zr.exe	Sitio oficial de 7-Zip
-
-# 🙌 Créditos
-Script creado por Kewsito
-
-Compatibilidad con la comunidad de RPCN / RPCS3
+Abre Seguridad de Windows.
+Ve a Protección contra virus y amenazas.
+En "Configuración de antivirus y protección contra amenazas", haz clic en Administrar la configuración.
+Busca la sección "Exclusiones" y haz clic en Agregar o quitar exclusiones.
+Haz clic en Agregar una exclusión, selecciona Carpeta y elige la carpeta donde guardaste el instalador.
+🙌 Créditos
+Script creado por Kewsito.
+Hecho posible gracias a las comunidades de RPCN y RPCS3.
+Únete al Discord: https://discord.gg/EyTvqHVybG
